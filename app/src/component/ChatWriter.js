@@ -3,44 +3,79 @@ import PropTypes from "prop-types";
 import Select from 'react-select'
 import $ from 'jquery'
 import {ToastContainer, toast} from 'react-toastify';
-
+import {Popup} from "./Popup";
 import '../css/chatwriter.css'
 
 export class ChatWriter extends Component {
+    refInputFile
+
     constructor(props) {
         super(props);
 
-        this.state = {inputContent: '', inputUser: ''}
+        this.state = {inputContent: '', inputUser: '', inputFile: '', popupDisplay : false}
 
         this.getOptions = this.getOptions.bind(this)
         this.send = this.send.bind(this)
         this.changeContent = this.changeContent.bind(this)
         this.changeUser = this.changeUser.bind(this)
+        this.uploadFile = this.uploadFile.bind(this)
+
+        this.triggerFilePopup = this.triggerFilePopup.bind(this)
     }
 
     render() {
         return (
 
-            <idv>
+            <div className={'chatwriter-fixed'}>
                 <div className="input-group">
-                    <span className="input-group-text"><span><Select onChange={this.changeUser} options={this.getOptions()}/></span></span>
-                    <textarea id={'message-to-send'} onChange={this.changeContent} className="form-control"
-                              aria-label="With textarea"/>
-                    <button className="btn btn-outline-secondary" type="button" onClick={this.send}>Send</button>
+                    <span className="input-group-text"><span><Select menuPlacement={'top'} onChange={this.changeUser}
+                                                                     options={this.getOptions()}/></span></span>
+                    <button className="btn btn-secondary" type="button" onClick={() => this.triggerFilePopup()}>...
+                    </button>
+                    <input id={'message-to-send'} value={this.state.inputContent} onChange={this.changeContent}
+                           className="form-control"
+                           aria-label="With textarea"/>
+                    <button className="btn btn-info" type="button" onClick={this.send}>Send</button>
                 </div>
+
+                {
+                    this.state.popupDisplay
+                        ? <Popup reactElement={<div>
+                            <form onSubmit={this.uploadFile}>
+                                <input className="form-control form-control-lg" id="formFileLg" type={'file'}/>
+                                <input type={'hidden'} value={this.state.inputUser}/>
+                                <button type="submit" className="btn btn-primary btn-lg">Submit</button>
+                            </form>
+                            <button className="btn btn-info btn-lg" onClick={() => this.triggerFilePopup()}>Close</button>
+                            <ToastContainer
+                                position="top-center"
+                                autoClose={1000}
+                                hideProgressBar={true}
+                                newestOnTop={false}
+                                closeOnClick
+                                rtl={false}
+                                draggable
+                            />
+                        </div>}/>
+                        : <div />
+                }
+
                 <ToastContainer
                     position="top-center"
-                    autoClose={1000 }
+                    autoClose={1000}
                     hideProgressBar={true}
                     newestOnTop={false}
                     closeOnClick
                     rtl={false}
                     draggable
                 />
-            </idv>
+            </div>
         )
     }
 
+    triggerFilePopup() {
+        this.setState({popupDisplay: this.state.popupDisplay === true ? false : true})
+    }
 
     getOptions() {
         let optionFormatted = [];
@@ -61,14 +96,15 @@ export class ChatWriter extends Component {
     }
 
     changeUser(optionSelected) {
-        if(!optionSelected){
-           return
+        if (!optionSelected) {
+            return
         }
 
         this.setState({inputUser: optionSelected.value})
     }
 
-    send(self) {
+    send() {
+        let self = this
         if (!this.state.inputContent) {
             toast("Your message content is empty", {})
             return
@@ -82,10 +118,43 @@ export class ChatWriter extends Component {
                 user: this.state.inputUser,
             },
             success(data) {
+                self.setState({inputContent: ''})
                 toast("Message sent", {})
             },
             error() {
                 toast("Message not sent", {})
+            },
+        });
+    }
+
+    uploadFile(event) {
+        event.preventDefault()
+
+        let files = $(event.target).find('input').prop('files')
+        if (files.length === 0) {
+            toast("File isn't select", {})
+            return
+        }
+
+        let formData = new FormData();
+        formData.append(
+            "content",
+            files[0],
+        );
+
+
+        $.ajax({
+            url: 'http://localhost:80/chat/Controller/UploadFile.php',
+            method: 'POST',
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success(data) {
+                toast("File sent", {})
+            },
+            error() {
+                toast("File not sent", {})
             },
         });
     }

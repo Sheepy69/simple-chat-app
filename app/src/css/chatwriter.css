@@ -1,3 +1,10 @@
 .select {
     font-weight: bold;
 }
+
+.chatwriter-fixed {
+    position: sticky;
+    left: 0;
+    bottom: 0;
+    width: 100%
+}

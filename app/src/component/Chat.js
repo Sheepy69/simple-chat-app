@@ -8,7 +8,7 @@ export class Chat extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {messages: [], users : []}
+        this.state = {messages: [], users: []}
 
         this.getMessages = this.getMessages.bind(this)
         this.getUser = this.getUser.bind(this)
@@ -23,18 +23,21 @@ export class Chat extends Component {
             </div>)
         }
         return (
-            <div className={'container-md'}>
+            <div>
+                <div className={'container-md overflow-auto'}>
+                    {
+                        this.state.messages ?
+                            this.state.messages.map(message => (
+                                <Message color={this.getUser(message.user).color} content={message.content}
+                                         user={this.getUser(message.user).nickname} date={message.created_at}/>
+                            ))
+                            : <div className="spinner-border" role="status">
+                                <span className="sr-only"/>
+                            </div>
+                    }
+                    </div>
                 {
-                    this.state.messages ?
-                        this.state.messages.map(message => (
-                            <Message color={this.getUser(message.user).color} content={message.content} user={this.getUser(message.user).nickname} date={message.created_at}/>
-                        ))
-                        : <div className="spinner-border" role="status">
-                            <span className="sr-only"/>
-                        </div>
-                }
-                {
-                    this.state.users ? <ChatWriter users={this.state.users} /> : <div />
+                    this.state.users ? <ChatWriter users={this.state.users}/> : <div/>
                 }
             </div>
         )
@@ -46,11 +49,11 @@ export class Chat extends Component {
             dataType: 'json',
             url: 'http://localhost:80/chat/Controller/GetAppData.php',
             success(data) {
-                if(data.messages){
-                    self.setState({messages : data.messages})
+                if (data.messages) {
+                    self.setState({messages: data.messages})
                 }
-                if(data.users){
-                    self.setState({users : data.users})
+                if (data.users) {
+                    self.setState({users: data.users})
                 }
             },
             error() {
@@ -61,10 +64,10 @@ export class Chat extends Component {
         setTimeout(this.getMessages, 2000);
     }
 
-    getUser(userId){
-        let randomUser = {nickname : 'anonymous', color : 'black'}
+    getUser(userId) {
+        let randomUser = {nickname: 'anonymous', color: 'black'}
 
-        if(this.state.users.length === 0){
+        if (this.state.users.length === 0) {
             return randomUser
         }
 

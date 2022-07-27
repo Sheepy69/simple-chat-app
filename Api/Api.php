@@ -11,11 +11,11 @@ class Api
     public function getMessages()
     {
         return $this->getConnection()
-            ->query('select * from message order by id DESC limit 20')
+            ->query('select * from message order by id DESC limit 40')
             ->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function sendMessage($content, $user)
+    public function sendMessage($content, $user = '0')
     {
         $this->getConnection()
             ->query(
