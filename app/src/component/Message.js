@@ -34,7 +34,7 @@ export class Message extends Component {
         event.preventDefault()
 
         $.ajax({
-            url: 'http://localhost:80/chat/Controller/GetFile.php',
+            url: process.env.REACT_APP_PROJECT_ROOT_URL + 'Controller/GetFile.php',
             method: 'POST',
             data: {image : this.props.  content},
             success(data) {

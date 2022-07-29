@@ -111,7 +111,7 @@ export class ChatWriter extends Component {
         }
 
         $.ajax({
-            url: 'http://localhost:80/chat/Controller/SendMessage.php',
+            url: process.env.REACT_APP_PROJECT_ROOT_URL + 'Controller/SendMessage.php',
             method: 'POST',
             data: {
                 content: this.state.inputContent,
@@ -144,7 +144,7 @@ export class ChatWriter extends Component {
 
 
         $.ajax({
-            url: 'http://localhost:80/chat/Controller/UploadFile.php',
+            url: process.env.REACT_APP_PROJECT_ROOT_URL + 'Controller/UploadFile.php',
             method: 'POST',
             data: formData,
             cache: false,

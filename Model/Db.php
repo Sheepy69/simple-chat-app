@@ -14,10 +14,13 @@ class Db
 
     public function install()
     {
-        $this->conn = new mysqli('localhost', 'root', '');
-        $this->conn->query('CREATE DATABASE IF NOT EXISTS chat');
+        $config = file_get_contents('../config.json');
+        $config = json_decode($config, true);
 
-        $this->conn = new mysqli('localhost', 'root', '', 'chat');
+        $this->conn = new mysqli($config['REACT_APP_DB_HOST'], $config['REACT_APP_DB_USERNAME'], $config['REACT_APP_DB_PASSW'], null, $config['REACT_APP_DB_PORT']);
+        $this->conn->query(sprintf('CREATE DATABASE IF NOT EXISTS %s', $config['REACT_APP_DB_NAME']));
+
+        $this->conn = new mysqli($config['REACT_APP_DB_HOST'], $config['REACT_APP_DB_USERNAME'], $config['REACT_APP_DB_PASSW'], $config['REACT_APP_DB_NAME'], $config['REACT_APP_DB_PORT']);
         $this->conn->query('CREATE TABLE IF NOT EXISTS user (id int NOT NULL AUTO_INCREMENT, nickname VARCHAR(255), color VARCHAR(255), PRIMARY KEY (id))');
 
         $haveUser = count($this->conn->query(   'select * from user')->fetch_all(MYSQLI_ASSOC)) > 0;

@@ -47,7 +47,7 @@ export class Chat extends Component {
         let self = this
         $.ajax({
             dataType: 'json',
-            url: 'http://localhost:80/chat/Controller/GetAppData.php',
+            url: process.env.REACT_APP_PROJECT_ROOT_URL + 'Controller/GetAppData.php',
             success(data) {
                 if (data.messages) {
                     self.setState({messages: data.messages})
