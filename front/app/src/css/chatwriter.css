@@ -1,0 +1,13 @@
+.select {
+    font-weight: bold;
+}
+
+.chatwriter {
+    width: 100%;
+    margin-top: 11px;
+}
+
+.chatwriter .input-group{
+    height: 50px;
+    border: 0;
+}

@@ -1,0 +1,50 @@
+.chat {
+    display: flex;
+    flex-direction: column;
+    max-width: 540px!important;
+}
+
+.container-message-left {
+    float: left;
+    display: inline-block;
+    width: 100%;
+}
+
+.container-message-right {
+    float: left;
+    display: inline-block;
+    width: 100%;
+}
+
+.chat img {
+    float: left;
+    max-width: 30px;
+    max-height: 30px;
+    width: 100%;
+    margin-right: 20px;
+    border-radius: 50%;
+}
+
+.chat img {
+    float: left;
+    max-width: 30px;
+    max-height: 30px;
+    width: 100%;
+    margin-right: 20px;
+    border-radius: 50%;
+}
+
+.scroll-down-button {
+    position: sticky;
+    left: 9px;
+    top: 97px;
+    width: 100%;
+    text-decoration: none;
+    color: #D3D3D3;
+    transition: 'all .2s';
+}
+
+.scroll-down-button, .scroll-down-button:hover, .scroll-down-button:focus, .scroll-down-button:active {
+    text-decoration: none;
+    color: #D3D3D3;
+}
