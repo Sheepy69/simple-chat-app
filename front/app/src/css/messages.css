@@ -44,9 +44,9 @@
     float: right;
 }
 
-.grouped {
-    margin: 0;
-}
+/*.grouped {*/
+/*    margin: 0;*/
+/*}*/
 
 .message-header {
     display: flex;

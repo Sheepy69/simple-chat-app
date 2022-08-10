@@ -5,6 +5,8 @@ import '../css/messages.css'
 import $ from "jquery";
 import {toast} from "react-toastify";
 
+import moment from 'moment';
+
 export class Message extends Component {
     constructor(props) {
         super(props);
@@ -13,7 +15,30 @@ export class Message extends Component {
         this.showFile = this.showFile.bind(this)
     }
 
+    formatDateInfo(date){
+        let today = moment();
+        let dateObject = moment(this.props.date);
+
+        let diffMins = today.diff(dateObject, 'minutes')
+
+        if(diffMins === 0){
+            return 'from now'
+        }
+
+        if(diffMins < 59){
+            return 'from ' + diffMins + ' mins'
+        }
+
+        let hoursDiff = today.diff(dateObject, 'hours')
+        if(hoursDiff < 24){
+            return 'from ' + String(hoursDiff)[0] + 'h '
+        }
+
+        return 'from ' +  today.diff(dateObject, 'days') + ' days'
+    }
     render() {
+        let dateInfo = this.formatDateInfo(this.props.date)
+
         return (
             <div style={{'background': '#' + this.props.color}}
                  className={this.props.className}>
@@ -26,22 +51,21 @@ export class Message extends Component {
                             : this.props.content
                     }
                 </p>
+                <small className={'toc-entry text-secondary'}>{dateInfo}</small>
             </div>
         )
     }
 
     showFile(event) {
         event.preventDefault()
+        let windowReference = window.open(); // ios
 
         $.ajax({
             url: process.env.REACT_APP_PROJECT_ROOT_URL + 'GetFile.php',
             method: 'POST',
             data: {image: this.props.content},
             success(data) {
-                window.open(
-                    data.image,
-                    '_blank' // <- This is what makes it open in a new window.
-                );
+                windowReference.location = data.image;
                 toast("File received", {})
             },
             error() {

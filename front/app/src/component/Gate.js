@@ -195,9 +195,7 @@ export class Gate extends Component {
                     if (data.isAuth === 1) {
                         toast("Wellcum ! 💦", {})
 
-                        setTimeout(() => {
-                            self.setState({currentMeet: dataPost.meet, showAuthForm: false, showMeetForm: false})
-                        }, 2000);
+                        self.setState({currentMeet: dataPost.meet, showAuthForm: false, showMeetForm: false})
                     } else {
                         toast("Authentification failed 🙅", {})
                     }

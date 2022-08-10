@@ -160,7 +160,7 @@ export class ChatWriter extends Component {
             success(data) {
                 toast("File sent", {})
             },
-            error() {
+            error(xhr, status, error) {
                 toast("File not sent", {})
             },
         });
