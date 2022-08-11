@@ -16,24 +16,6 @@
     width: 100%;
 }
 
-.chat img {
-    float: left;
-    max-width: 30px;
-    max-height: 30px;
-    width: 100%;
-    margin-right: 20px;
-    border-radius: 50%;
-}
-
-.chat img {
-    float: left;
-    max-width: 30px;
-    max-height: 30px;
-    width: 100%;
-    margin-right: 20px;
-    border-radius: 50%;
-}
-
 .scroll-down-button {
     position: sticky;
     left: 9px;

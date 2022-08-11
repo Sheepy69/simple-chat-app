@@ -11,15 +11,6 @@
     font-weight: bold;
 }
 
-.message img {
-    float: left;
-    max-width: 60px;
-    width: 100%;
-    height: 60px;
-    margin-right: 20px;
-    border-radius: 50%;
-}
-
 .message-left .nickname {
     text-align: left;
     width: 200px;
@@ -50,6 +41,23 @@
 
 .message-header {
     display: flex;
+}
+
+.zoom-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: nowrap;
+    height: 100%;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.zoom-area button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: nowrap;
 }
 
 
