@@ -35,7 +35,7 @@ export class Message extends Component {
 
         let hoursDiff = today.diff(dateObject, 'hours')
         if (hoursDiff < 24) {
-            return 'from ' + String(hoursDiff)[0] + 'h '
+            return 'from ' + String(hoursDiff) +  ' h '
         }
 
         return 'from ' + today.diff(dateObject, 'days') + ' days'
