@@ -23,5 +23,4 @@ if ($isSecure) {
 
 unset($_POST['passwd']); // secure passwd
 
-echo json_encode($_POST);
-die();
+return $_POST;

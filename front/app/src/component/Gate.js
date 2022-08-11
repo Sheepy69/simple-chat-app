@@ -146,7 +146,7 @@ export class Gate extends Component {
 
         $.ajax({
             dataType: 'json',
-            url: process.env.REACT_APP_PROJECT_ROOT_URL + 'CreateMeet.php',
+            url: process.env.REACT_APP_PROJECT_ROOT_URL + 'CreateMeet',
             data: data,
             method: 'POST',
             success(data) {
@@ -166,7 +166,7 @@ export class Gate extends Component {
 
         $.ajax({
             dataType: 'json',
-            url: process.env.REACT_APP_PROJECT_ROOT_URL + 'GetMeet.php',
+            url: process.env.REACT_APP_PROJECT_ROOT_URL + 'GetMeet',
             method: 'POST',
             success(data) {
                 if (data) {
@@ -186,7 +186,7 @@ export class Gate extends Component {
 
         $.ajax({
             dataType: 'json',
-            url: process.env.REACT_APP_PROJECT_ROOT_URL + 'AuthToMeet.php',
+            url: process.env.REACT_APP_PROJECT_ROOT_URL + 'AuthToMeet',
             method: 'POST',
             data: dataPost,
             success(data) {

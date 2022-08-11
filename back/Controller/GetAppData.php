@@ -13,9 +13,8 @@ header("Content-Type: text/json");
 
 $api = new Api();
 
-echo json_encode([
+return [
     'messages' => array_reverse($api->getMessagesFromMeet($_POST['meet'])),
     'users' => $api->getUsers()
-], true);
+];
 
-die();

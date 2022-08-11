@@ -167,7 +167,7 @@ export class Chat extends Component {
         let self = this
         $.ajax({
             dataType: 'json',
-            url: process.env.REACT_APP_PROJECT_ROOT_URL + 'GetAppData.php',
+            url: process.env.REACT_APP_PROJECT_ROOT_URL + 'GetAppData',
             method : 'POST',
             data : {meet: self.props.meet},
             success(data) {

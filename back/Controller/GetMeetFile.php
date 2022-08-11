@@ -16,8 +16,7 @@ $api = new Api();
 $config = file_get_contents('../config.json');
 $config = json_decode($config, true);
 
-echo json_encode([
+return [
     'image' => sprintf('%s%s/%s', $config['REACT_APP_PROJECT_ROOT_URL'], $config['REACT_APP_PROJECT_MEDIA_DIR'], $_POST['image']),
-], true);
+];
 
-die();

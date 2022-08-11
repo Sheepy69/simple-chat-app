@@ -61,7 +61,7 @@ export class Message extends Component {
         let windowReference = window.open(); // ios
 
         $.ajax({
-            url: process.env.REACT_APP_PROJECT_ROOT_URL + 'GetFile.php',
+            url: process.env.REACT_APP_PROJECT_ROOT_URL + 'GetFile',
             method: 'POST',
             data: {image: this.props.content},
             success(data) {

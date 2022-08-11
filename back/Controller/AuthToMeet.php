@@ -13,5 +13,4 @@ header("Content-Type: text/json; charset=utf-8");
 
 $api = new Api();
 
-echo json_encode(['isAuth' => $api->authMeet($_POST['meet'], $_POST['passwd'])]);
-die();
+return ['isAuth' => $api->authMeet($_POST['meet'], $_POST['passwd'])];

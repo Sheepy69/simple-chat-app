@@ -16,5 +16,4 @@ $api = new Api();
 $api->sendMessage(addslashes($_POST['content']), $_POST['meet'], $_SERVER['REMOTE_ADDR']);
 $api->createUser($_SERVER['REMOTE_ADDR']);
 
-echo json_encode($_POST);
-die();
+return $_POST;

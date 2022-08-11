@@ -29,9 +29,7 @@ if (!$isUploaded) {
     throw  new Exception('Failed.');
 }
 
-file_put_contents('./log_'.date("j.n.Y").'.log', $_FILES, FILE_APPEND);
 
 $api->sendMessage($_FILES['content']['name'], $_POST['meet'], (string)$_SERVER['REMOTE_ADDR']);
 
-echo json_encode(['status' => 'sucess']);
-die();
+return ['status' => 'success'];

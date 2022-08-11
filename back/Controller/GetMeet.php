@@ -27,6 +27,4 @@ if (count($meets)) {
     }
 }
 
-echo json_encode([$formattedData], true);
-
-die();
+return [$formattedData];
