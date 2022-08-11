@@ -60,4 +60,10 @@
     flex-wrap: nowrap;
 }
 
+.zoom-area img {
+    max-width: 100%;
+    height: auto;
+    width: auto;
+}
+
 
