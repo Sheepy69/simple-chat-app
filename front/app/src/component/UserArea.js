@@ -59,7 +59,7 @@ export class UserArea extends Component {
                                         return <a href={'#'} onClick={(event) => this.handleUserSelect(event, user)}>
                                             <div className="card">
                                                 <img src={logo} width={150} height={150} className="card-img-top img-user" alt="..."/>
-                                                <div className="card-body">
+                                                <div className="card-body" style={{'background' : '#' + user.color}}>
                                                     {user.nickname}
                                                 </div>
                                             </div>
