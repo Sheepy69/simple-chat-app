@@ -13,6 +13,6 @@ header("Content-Type: text/json; charset=utf-8");
 
 $api = new Api();
 
-$api->sendMessage(addslashes($_POST['content']), $_POST['meet'], $_POST['user']);
+$api->createUser(addslashes($_POST['nickname']), $_POST['color'], $_POST['email']);
 
 return $_POST;

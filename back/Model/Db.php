@@ -23,7 +23,7 @@ class Db
 
         // table user & meet
         $this->conn = new mysqli($config['REACT_APP_DB_HOST'], $config['REACT_APP_DB_USERNAME'], $config['REACT_APP_DB_PASSW'], $config['REACT_APP_DB_NAME'], $config['REACT_APP_DB_PORT']);
-        $this->conn->query('CREATE TABLE IF NOT EXISTS user (id int NOT NULL AUTO_INCREMENT, nickname VARCHAR(255), color VARCHAR(255), PRIMARY KEY (id))');
+        $this->conn->query('CREATE TABLE IF NOT EXISTS user (id int NOT NULL AUTO_INCREMENT, nickname VARCHAR(255), color VARCHAR(255), email VARCHAR(255), PRIMARY KEY (id))');
         $this->conn->query('CREATE TABLE IF NOT EXISTS meet (id int NOT NULL AUTO_INCREMENT, title VARCHAR(255), hash VARCHAR(255), PRIMARY KEY (id))');
 
         $haveUser = count($this->conn->query(   'select * from user')->fetch_all(MYSQLI_ASSOC)) > 0;

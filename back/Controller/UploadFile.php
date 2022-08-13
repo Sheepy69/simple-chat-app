@@ -30,6 +30,6 @@ if (!$isUploaded) {
 }
 
 
-$api->sendMessage($_FILES['content']['name'], $_POST['meet'], (string)$_SERVER['REMOTE_ADDR']);
+$api->sendMessage($_FILES['content']['name'], $_POST['meet'], $_POST['user']);
 
 return ['status' => 'success'];

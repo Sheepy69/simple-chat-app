@@ -1,19 +1,12 @@
 .chat {
     display: flex;
     flex-direction: column;
-    max-width: 540px!important;
+    max-width: 540px !important;
+    gap: 12px;
 }
 
-.container-message-left {
-    float: left;
-    display: inline-block;
-    width: 100%;
-}
-
-.container-message-right {
-    float: left;
-    display: inline-block;
-    width: 100%;
+.my-chat-message .card-header .card-title {
+    text-align: right;
 }
 
 .scroll-down-button {

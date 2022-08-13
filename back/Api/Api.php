@@ -8,7 +8,8 @@ use Model\Db;
 
 class Api
 {
-    public function getMeetMessages($searchString, $page){
+    public function getMeetMessages($searchString, $page)
+    {
         return $this->getConnection()
             ->query(sprintf("select * from message where content like '%s' order by id DESC limit 10", $searchString))
             ->fetch_all(MYSQLI_ASSOC);
@@ -74,27 +75,14 @@ class Api
             ->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function createUser($nickname)
+    public function createUser($nickname, $color= '', $email = '')
     {
-        $result = $this->getConnection()
-            ->query(sprintf("select * from user where nickname = '%s'", $nickname))
-            ->fetch_all(MYSQLI_ASSOC);
-
-        if ($result) {
-            return;
-        }
-
-        $users = $this->getUsers();
-        $colorsUsed = array_column($users, 'color');
-
-        $color = $this->getRandomColor();
-        while (in_array($color, $colorsUsed)) {
-            $color = $this->getRandomColor();
-        }
-
         $this->getConnection()
             ->query(sprintf(
-                "INSERT INTO user (nickname, color) VALUES ('%s', '%s')", $nickname, $color
+                "INSERT INTO user (nickname, color, email) VALUES ('%s', '%s', '%s')",
+                $nickname,
+                $color ?: $this->getRandomColor(),
+                $email
             ));
     }
 

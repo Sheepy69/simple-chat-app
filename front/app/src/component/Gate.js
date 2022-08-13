@@ -7,9 +7,8 @@ import $ from "jquery";
 import {ToastContainer, toast} from 'react-toastify';
 
 export class Gate extends Component {
-    constructor(props) {
-        super(props);
-
+    constructor(props, context) {
+        super(props, context);
         this.state = {
             meets: [],
             currentMeet: '',
@@ -91,14 +90,16 @@ export class Gate extends Component {
         if (!this.state.currentMeet && !this.state.showMeetForm && !this.state.showAuthForm) {
             return (
                 <div className={'chat-select container'}>
-                    <button type="button" className="btn btn-secondary new-meet-button" onClick={this.createMeet}>New
+                    <button type="button" className="btn btn-secondary new-meet-button"
+                            onClick={this.createMeet}>New
                     </button>
                     {
                         this.state.meets !== [] ?
                             this.state.meets.map((meet, key) => {
                                 return <div key={key} className="card">
                                     <div className="card-header">
-                                        {meet.title} {meet.isSecure ? <i className="fa-solid fa-user-secret"></i> : ''}
+                                        {meet.title} {meet.isSecure ?
+                                        <i className="fa-solid fa-user-secret"></i> : ''}
                                     </div>
                                     <div className="card-body">
                                         <button type="button" onClick={() => this.accessMeet(meet)}
@@ -208,5 +209,4 @@ export class Gate extends Component {
         });
     }
 }
-
 

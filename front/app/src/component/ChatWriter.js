@@ -5,15 +5,21 @@ import $ from 'jquery'
 import {ToastContainer, toast} from 'react-toastify';
 import {Popup} from "./Popup";
 import '../css/chatwriter.css'
-import {Chat} from "./Chat";
+import {UserContext} from '../App.js';
 
 export class ChatWriter extends Component {
     refInputFile
+    static contextType = UserContext;
 
     constructor(props) {
         super(props);
-
-        this.state = {inputContent: '', inputUser: '', inputFile: '', popupDisplay: false}
+        this.state = {
+            inputContent: '',
+            inputUser: '',
+            inputFile: '',
+            popupDisplay: false,
+            user: UserContext.Consumer._currentValue
+        }
 
         this.getOptions = this.getOptions.bind(this)
         this.send = this.send.bind(this)
@@ -27,8 +33,8 @@ export class ChatWriter extends Component {
     render() {
         /*<Select styles={{'display': 'none'}} menuPlacement={'top'} onChange={this.changeUser}
                              options={this.getOptions()}/>*/
-        return (
 
+        return (
             <div className={'chatwriter'}>
                 <div className="input-group">
                     <button className="btn btn-secondary" type="button" onClick={() => this.triggerFilePopup()}><i
@@ -116,8 +122,8 @@ export class ChatWriter extends Component {
             method: 'POST',
             data: {
                 content: this.state.inputContent,
-                user: this.state.inputUser,
-                meet : this.props.meet
+                user: this.state.user.nickname,
+                meet: this.props.meet
             },
             success(data) {
                 self.setState({inputContent: ''})
@@ -147,6 +153,10 @@ export class ChatWriter extends Component {
         formData.append(
             "meet",
             this.props.meet,
+        );
+        formData.append(
+            "user",
+            this.state.user.nickname
         );
 
 

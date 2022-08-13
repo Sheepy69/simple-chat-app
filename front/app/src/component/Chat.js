@@ -5,8 +5,6 @@ import $ from 'jquery';
 
 import '../css/chat.css'
 import PropTypes from "prop-types";
-import {AuthForm} from "./AuthForm";
-
 
 export class Chat extends Component {
     constructor(props) {
@@ -50,7 +48,7 @@ export class Chat extends Component {
         }
 
         return (
-            <div>
+            <div >
                 {
                     !this.state.lastMessageIsVisible ?
                         <a href={''} onClick={(event) => this.handleArrowDownClick(event)}
@@ -70,12 +68,14 @@ export class Chat extends Component {
                         this.state.messages ?
                             this.state.messages.map((message, key) => {
                                 return <div key={key}
-                                            className={message.orderContainer}>
+                                            className={'chat-message'}>
 
-                                    <Message className={message.orderMessage}
+                                    <Message className={'my-chat-message'}
                                              color={this.getUser(message.user).color}
                                              content={message.content}
-                                             user={message.user} date={message.created_at}/>
+                                             user={this.getUser(message.user).nickname}
+                                             date={message.diff_date}
+                                    />
                                 </div>
                             })
                             : <div className="spinner-border" role="status">
@@ -87,7 +87,8 @@ export class Chat extends Component {
                     }}/>
                 </div>
                 {
-                    this.state.users ? <ChatWriter users={this.state.users} meet={this.props.meet}/> : <div/>
+                    this.state.users ? <ChatWriter users={this.state.users} meet={this.props.meet}/> :
+                        <div/>
                 }
             </div>
         )
@@ -109,67 +110,13 @@ export class Chat extends Component {
         }
     }
 
-    formatMessage(messages) {
-        if (!messages) {
-            return messages;
-        }
-
-        const swapContainerClass = (currentContainerClass, container = true) => {
-            return currentContainerClass === 'container-message-left' ? 'container-message-right' : 'container-message-left'
-        }
-
-        const swapMessageClass = (currentMessageClass) => {
-            return currentMessageClass === 'message message-left' ? 'message message-right' : 'message message-left'
-        }
-
-
-        let prevUser = '';
-        let currentUser = '';
-        let currentContainerClass = 'container-message-right'
-        let currentMessageClass = 'message-right'
-        let newMessages = []
-
-        messages.map((message, key) => {
-            if ((key % 2) === 0 || key === 0) {
-                currentUser = message.user
-            } else {
-                prevUser = message.user
-            }
-
-            // handle left right
-            if (prevUser !== currentUser) {
-                currentContainerClass = swapContainerClass(currentContainerClass)
-                currentMessageClass = swapMessageClass(currentMessageClass)
-            }
-
-            // handle group message
-            let groupClass = ''
-            if (messages[key - 1] && messages[key + 1]) {
-                groupClass = messages[key - 1].user === messages[key + 1].user ? ' grouped' : '';
-            }
-
-            let newMessage = {
-                user: message.user,
-                id: message.id,
-                content: message.content,
-                created_at: message.created_at,
-                orderContainer: currentContainerClass,
-                orderMessage: currentMessageClass + groupClass,
-            }
-
-            newMessages.push(newMessage)
-        })
-
-        return newMessages
-    }
-
     getMessages() {
         let self = this
         $.ajax({
             dataType: 'json',
             url: process.env.REACT_APP_PROJECT_ROOT_URL + 'GetAppData',
-            method : 'POST',
-            data : {meet: self.props.meet},
+            method: 'POST',
+            data: {meet: self.props.meet},
             success(data) {
                 if (data.users) {
                     self.setState({users: data.users})
@@ -177,7 +124,7 @@ export class Chat extends Component {
 
                 if (data.messages) {
                     let messages = data.messages
-                    self.setState({messages: self.formatMessage(messages)})
+                    self.setState({messages: messages})
 
                     // add arrow down when last message isn't visible : from get messages every 1 sec call
                     if (self.messagesEnd && !self.isVisible(self.messagesEnd)) {
@@ -192,18 +139,16 @@ export class Chat extends Component {
             },
         });
 
-        setTimeout(this.getMessages, 2000);
+        setTimeout(this.getMessages, 500);
     }
 
     getUser(nickname) {
         let randomUser = {nickname: 'anonymous', color: 'black'}
-
         if (this.state.users.length === 0) {
             return randomUser
         }
 
         let user = this.state.users.filter(user => user.nickname === nickname);
-
         return user.length > 0 ? user[0] : randomUser
     }
 }

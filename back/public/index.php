@@ -81,4 +81,11 @@ $app->post('/UploadFile', function (Request $request, Response $response, $args)
     return $response->withJson($payload, 200);
 });
 
+$app->post('/CreateUser', function (Request $request, Response $response, $args) {
+    setHeaders($response);
+
+    $payload = require '../Controller/CreateUser.php';
+    return $response->withJson($payload, 200);
+});
+
 $app->run();

@@ -1,0 +1,18 @@
+.img-user {
+    width: 150px!important;
+    height: 150px;
+}
+
+.user-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.user-area .card {
+   margin-bottom: 12px;
+}
+
+.user-area .card-body {
+   background: aquamarine;
+}
