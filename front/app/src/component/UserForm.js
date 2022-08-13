@@ -47,7 +47,7 @@ export class UserForm extends Component {
                         : <div></div>
                 }
 
-                <div className="form-check">
+                <div className="form-check" style={{'margin-bottom': '12px'}}>
                     <input onChange={this.handleNotif} className="form-check-input" name={'notification'}
                            type="checkbox" value="" id="defaultCheck1"/>
                     <label className="form-check-label" htmlFor="notification">
@@ -55,9 +55,12 @@ export class UserForm extends Component {
                     </label>
                 </div>
 
-                <CirclePicker circleSize={60} width={500} onChange={(color) => {
-                    this.handleColor(color)
-                }}/>
+                <div>
+                    <CirclePicker circleSize={60} onChange={(color) => {
+                        this.handleColor(color)
+                    }}/>
+                </div>
+
                 <input type={'hidden'} value={this.state.color} name={'color'}/>
 
                 <button className={'btn btn-secondary cancel-button'} style={{'margin-top': '12px'}}
