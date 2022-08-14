@@ -16,3 +16,15 @@
 .user-area .card-body {
    background: aquamarine;
 }
+
+.user-area h1 {
+    color: #1982FC;
+}
+
+.user-area a {
+    text-transform: uppercase;
+    text-decoration: none;
+    color: black;
+    text-shadow: 0.1em 0.1em 0.15em #96b0bc;
+    text-align: center;
+}
