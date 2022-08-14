@@ -21,7 +21,7 @@ export class Message extends Component {
         this.showFile = this.showFile.bind(this)
         this.zoom = this.zoom.bind(this)
 
-        this.state = {showMedia: false, media: '', zoomMedia: false, currentUser : UserContext.Consumer._currentValue}
+        this.state = {showMedia: false, media: '', zoomMedia: false, currentUser: UserContext.Consumer._currentValue}
     }
 
     zoom() {
@@ -29,50 +29,63 @@ export class Message extends Component {
     }
 
     render() {
-        let className = this.props.user === this.state.currentUser.nickname ? ' my-chat-message' : ''
+        let isCurrentUser = this.props.user === this.state.currentUser.nickname
+        let messageClassName = isCurrentUser ? ' my-chat-message' : ''
+        let messageContainerClassName = isCurrentUser ? ' my-container-chat-message' : ''
 
         return (
-            <div className={'card message' + className}
-                 style={{'background' : '#' + this.props.color}}>
-                <div className="card-header">
-                    <h5 className="card-title">{this.props.user} <i className="fa-solid fa-user"></i></h5>
-                </div>
-                <div className="card-body">
-                    <p>
-                        {
-                            (this.isFile() === true) ?
-                                <>
-                                    {
-                                        (this.state.showMedia === false) ?
-                                            <div>
-                                                <button className={'btn btn-dark'} onClick={this.showFile}>Show media 🤫
-                                                </button>
-                                            </div>
-                                            : <div>
-                                                <a href={'#'} onClick={() => this.zoom()}>
-                                                    <img width="150" height="150" className={'media-image'}
-                                                         src={this.state.media} alt={''}/>
-                                                </a>
-                                            </div>
-                                    }
-                                </>
-                                : this.props.content
-                        }
-                        {
-                            (this.state.zoomMedia === true) ? <Popup reactElement={
-                                <div className={'zoom-area'}>
-                                    <button className={'btn btn-secondary'} onClick={() => this.zoom()}>Back</button>
-                                    <img
-                                        className={'media-image'}
-                                        src={this.state.media} alt={''}/>
-                                </div>
-                            }/> : ''
-                        }
-                    </p>
+            <div className={'message-container' + messageContainerClassName}>
+                <div className={'card message' + messageClassName}
+                    // style={{'background': '#' + this.props.color}}
+                >
+                    <div className="card-body">
+                        <p>
+                            {
+                                (this.isFile() === true) ?
+                                    <>
+                                        {
+                                            (this.state.showMedia === false) ?
+                                                <div>
+                                                    <button className={'btn btn-dark'} onClick={this.showFile}>Show
+                                                        media 🤫
+                                                    </button>
+                                                </div>
+                                                : <div>
+                                                    <a className={'img-link'} href={'#'} onClick={() => this.zoom()}>
+                                                        <img width="150" height="150" className={'media-image'}
+                                                             src={this.state.media} alt={''}/>
+                                                    </a>
+                                                </div>
+                                        }
+                                    </>
+                                    : this.props.content
+                            }
+                            {
+                                (this.state.zoomMedia === true) ? <Popup reactElement={
+                                    <div className={'zoom-area'}>
+                                        <button className={'btn btn-secondary'} onClick={() => this.zoom()}>Back
+                                        </button>
+                                        <img
+                                            className={'media-image'}
+                                            src={this.state.media} alt={''}/>
+                                    </div>
+                                }/> : ''
+                            }
+                        </p>
+                    </div>
+                    <div className="card-footer">
+                        <small className={'toc-entry text-secondary'}>
+                            {
+                                !isCurrentUser
+                                    ? this.props.date + ' - ' + this.props.user
+                                    : this.props.date
+                            }
+                        </small>
+                    </div>
                 </div>
 
-                <div className="card-footer">
-                    <small className={'toc-entry text-secondary'}>{this.props.date}</small>
+                <div className={'dot-container'}>
+                    <span className="dot" style={{'background-color': '#' + this.props.color}}></span>
                 </div>
             </div>
         )

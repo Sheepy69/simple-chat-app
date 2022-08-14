@@ -28,27 +28,27 @@ function App() {
     }
 
     return (
-        <div className="App" style={{'background-color': '#5B5EA6'}}>
+        <div className="App" style={{'background-color': '#32393c'}}>
 
             <header style={{'margin-bottom': '20px'}}>
                 <nav className="navbar navbar-dark bg-dark" style={{'align-text': 'center'}}>
                     <a className="navbar-brand" href="#" style={yeeyStyle}>
                         YEEY <div>🙌</div> TEAM
                     </a>
-                    <a href="#" onClick={() => window.location.reload()}>
-                        <i className="fa-solid fa-unlock fa-2x"
-                           style={{'color': 'white', 'align-text': 'right', 'margin-right': '10px'}}>
-                        </i>
-                    </a>
+                    <h1 style={{'color' : '#1982FC', 'margin-right' : '12px'}}>
+                        {
+                            userIsAuthn ? user.nickname : ''
+                        }
+                    </h1>
                 </nav>
             </header>
 
-            <body style={{'background-color': '#5B5EA6'}}>
-                <UserContext.Provider value={user}>
-                    {
-                        userIsAuthn ? <Gate/> : <UserArea handleUserIsAuth={handleUserIsAuth}/>
-                    }
-                </UserContext.Provider>
+            <body style={{'background-color': '#32393c'}}>
+            <UserContext.Provider value={user}>
+                {
+                    userIsAuthn ? <Gate/> : <UserArea handleUserIsAuth={handleUserIsAuth}/>
+                }
+            </UserContext.Provider>
             </body>
 
         </div>
