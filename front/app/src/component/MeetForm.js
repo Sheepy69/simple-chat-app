@@ -32,7 +32,7 @@ export class MeetForm extends Component {
                         <div>
                             <label htmlFor="passwd" style={{'color': 'white'}}>Password</label>
                             <div className="input-group input-group-lg" style={{'margin-bottom': '12px'}}>
-                                <input type="password" name={'passwd'} className="form-control"
+                                <input type="password" pattern="[0-9]*" inputMode="numeric" name={'passwd'} className="form-control"
                                        aria-label="Large"
                                        aria-describedby="inputGroup-sizing-sm"/>
                             </div>

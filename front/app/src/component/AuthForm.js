@@ -6,7 +6,7 @@ export class AuthForm extends Component {
         return (
             <form onSubmit={this.props.handleSubmit}>
                 <div className="input-group input-group-lg">
-                    <input type="password" autoFocus name={'meet-to-auth-passwd'} className="form-control" aria-label="Large"
+                    <input type="password" pattern="[0-9]*" inputMode="numeric" autoFocus name={'meet-to-auth-passwd'} className="form-control" aria-label="Large"
                            aria-describedby="inputGroup-sizing-sm"/>
                     <button className={'btn btn-success'} type={'submit'}>Ok</button>
                 </div>
