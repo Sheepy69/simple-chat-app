@@ -19,3 +19,36 @@
     text-decoration: none;
     color: #D3D3D3;
 }
+
+.meet-param {
+    margin-right: 12px;
+    position: sticky;
+    left: 9px;
+    top: 97px;
+    width: 100%;
+    text-decoration: none;
+    color: #D3D3D3;
+    transition: 'all .2s';
+}
+
+.meet-parameter-link {
+    text-decoration: none!important;
+    color: #fbfb85!important;
+    position: sticky;
+    left: 9px;
+    top: 97px;
+    width: 100%;
+    text-decoration: none;
+    transition: 'all .2s';
+    margin-left: 25px;
+}
+
+.param-menu {
+    margin-bottom: 12px;
+}
+
+.param-menu-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

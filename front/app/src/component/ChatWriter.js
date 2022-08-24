@@ -47,13 +47,13 @@ export class ChatWriter extends Component {
 
                 {
                     this.state.popupDisplay
-                        ? <Popup reactElement={<div>
-                            <form onSubmit={this.uploadFile}>
+                        ? <Popup reactElement={<div className={'formfile-container'}>
+                            <form id={'formFile'} onSubmit={this.uploadFile}>
                                 <input className="form-control form-control-lg" id="formFileLg" type={'file'}/>
                                 <input type={'hidden'} value={this.state.inputUser}/>
                                 <button type="submit" className="btn btn-primary btn-lg">Submit</button>
                             </form>
-                            <button className="btn btn-info btn-lg" onClick={() => this.triggerFilePopup()}>Close</button>
+                            <button className="btn btn-secondary btn-lg" onClick={() => this.triggerFilePopup()}>Close</button>
                             <ToastContainer
                                 position="top-center"
                                 autoClose={1000}

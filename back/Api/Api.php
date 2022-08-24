@@ -8,6 +8,18 @@ use Model\Db;
 
 class Api
 {
+    public function getMeetFiles($meet)
+    {
+        return $this->getConnection()
+            ->query(
+                sprintf(
+                    "select * from message where meet = '%s' and (content like '%s.png' or content like '%s.jpeg' or content like '%s.PNG' or content like '%s.JPEG' or content like '%s.webp') order by id DESC",
+                    $meet, '%', '%', '%', '%', '%s'
+                )
+            )
+            ->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function getMeetMessages($searchString, $page)
     {
         return $this->getConnection()

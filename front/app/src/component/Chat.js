@@ -1,6 +1,8 @@
-import React, {Component, useEffect, useState} from 'react';
+import React, {Component, Fragment, useEffect, useState} from 'react';
 import {Message} from "./Message";
 import {ChatWriter} from "./ChatWriter";
+import {Popup} from "./Popup";
+import {ParamMenu} from "./ParamMenu";
 import $ from 'jquery';
 
 import '../css/chat.css'
@@ -16,13 +18,20 @@ export class Chat extends Component {
             currentUser: '',
             currentPosition: 'left',
             firstBottomScroll: true,
-            lastMessageIsVisible: true
+            lastMessageIsVisible: true,
+            paramPopup: false
         }
 
         this.getMessages = this.getMessages.bind(this)
         this.getUser = this.getUser.bind(this)
+        this.handlePopupParam = this.handlePopupParam.bind(this)
 
         this.getMessages()
+    }
+
+    handlePopupParam(e) {
+        e.preventDefault()
+        this.setState({paramPopup: this.state.paramPopup === true ? false : true})
     }
 
     handleArrowDownClick(event) {
@@ -48,7 +57,8 @@ export class Chat extends Component {
         }
 
         return (
-            <div >
+            <div>
+                { /* Go back down arrow */}
                 {
                     !this.state.lastMessageIsVisible ?
                         <a href={''} onClick={(event) => this.handleArrowDownClick(event)}
@@ -56,6 +66,22 @@ export class Chat extends Component {
                             className="fa-solid fa-circle-arrow-down fa-3x"></i></a> : <div></div>
                 }
 
+                { /* Params */}
+                <a href={'#'} className={'meet-parameter-link'} onClick={(e) => this.handlePopupParam(e)}>
+                    <i className="fa-solid fa-gear fa-3x"></i>
+                </a>
+                {
+                    this.state.paramPopup ? <Popup
+                        reactElement={<div className={'param-menu-container'}>
+
+                            <ParamMenu meet={this.props.meet}/>
+
+                            <a className={'btn btn-secondary'} href={'#'}
+                               onClick={(e) => this.handlePopupParam(e)}>Close</a>
+                        </div>}/> : ''
+                }
+
+                { /* Messages */}
                 {this.state.messages.length === 0 ?
                     <div style={{'text-align': 'center', 'margin-bottom': '20px', 'font-size': '150px'}}>
                         🙌

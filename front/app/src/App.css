@@ -1,8 +1,4 @@
 .navbar {
-    /*flex-direction: column!important;*/
-    /*align-items: center!important;*/
-    /*margin-bottom: 20px;*/
-
     display: flex;
     flex-direction: row;
     align-items: center;

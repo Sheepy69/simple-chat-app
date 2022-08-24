@@ -88,4 +88,11 @@ $app->post('/CreateUser', function (Request $request, Response $response, $args)
     return $response->withJson($payload, 200);
 });
 
+$app->post('/GetFilesMeet', function (Request $request, Response $response, $args) {
+    setHeaders($response);
+
+    $payload = require '../Controller/GetFilesMeet.php';
+    return $response->withJson($payload, 200);
+});
+
 $app->run();
